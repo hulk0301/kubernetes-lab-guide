@@ -20,6 +20,6 @@ spec:
     spec:
       containers:
         - name: backend
-          image: backend:v2.0.0
+          image: hulk18/backend:v2.0.0
           ports:
             - containerPort: 8080

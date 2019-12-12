@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: eu.gcr.io/kpb5wmtj31ln/kubernetes-lab/frontend:v2.0.0
+          image: hulk18/frontend:v2.0.0
           env:
             - name: API_URL
               value: http://backend.default.svc.cluster.local

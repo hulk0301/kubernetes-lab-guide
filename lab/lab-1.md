@@ -13,7 +13,7 @@ Now checkout the sample repository on your `node-0` via:
 ```
 
 Then build the docker image using the provided Dockerfile.
-Use `backend:v1.0.0` as tag for your image and push it to DockerHub(you should have already an account, if not created one).
+Use `backend:v1.0.0` as tag for your image and push it to DockerHub(you should have already an account, if not create one).
 
 > Note: If you clone the repo to another folder, you might have to adapt some paths when running the provided commands!
 
@@ -34,7 +34,7 @@ Create a deployment manifest(`backend_deployment_v1.yaml`) and apply it on the K
 - `app=backend`
 - `version=v1`
 
-Put the deployment into the newly created namespace `demoapp` by adding the namespace as metadata in your manifest YAML file and apply it on the cluster:
+Create the deployment in the newly created namespace `demoapp` by adding the namespace as metadata in your manifest YAML file and apply it on the cluster:
 
 ```sh
 [centos@node-0 example-app-backend]$ kubectl apply -f backend_deployment_v1.yaml
@@ -44,8 +44,8 @@ If you need more information about how to create a kubernetes deployment manifes
 
 ## Expose the backend internally
 
-As we want to access the backend pods from our frontend we have to expose it internally.
-Which is Kubernetes object is used to expose a deployment on the cluster?
+As we want to access the backend pods from our frontend we have to expose it cluster-internally.
+Which Kubernetes resource is used to expose a deployment on the cluster?
 And how can we make it only internally available? Is there a special type for the resource we are looking for?
 Use both labels(`app`, `version`) for the pod selection.
 
@@ -62,7 +62,7 @@ Now checkout the sample repository on your `node-0` via:
 ```
 
 Then build the docker image using the provided Dockerfile.
-Use `frontend:v1.0.0` as tag for your image and push it to DockerHub(you should have already an account, if not created one).
+Use `frontend:v1.0.0` as tag for your image and push it to DockerHub(you should have already an account, if not create one).
 
 ## Deploy the frontend to Kubernetes
 
@@ -71,7 +71,7 @@ Create a deployment manifest(`deployment_v1.yaml`) and apply it on the Kubernete
 - `app=frontend`
 - `version=v1`
 
-Put the deployment also in the namespace `demoapp`(The namespace was create in the `Deploy the backend to Kubernetes` section):
+Create the deployment also in the namespace `demoapp` (The namespace was created in the `Deploy the backend to Kubernetes` section):
 
 ```sh
 [centos@node-0 example-app-frontend]$ kubectl apply -f deployment_v1.yaml
@@ -80,11 +80,11 @@ Put the deployment also in the namespace `demoapp`(The namespace was create in t
 If you need more information about how to create a kubernetes deployment manifest, check the docs [here](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#creating-a-deployment). The deployment should run the **frontend** docker image in version `v1.0.0`.
 
 Don't forget to set the environment variable `API_URL` to a valid URL(`http://<MY_BACKEND_HOST>:<MY_BACKEND_PORT>`).
-How can you configure the environment for your deployment? Check out the docs about environment for containers [here](https://kubernetes.io/docs/tasks/inject-data-application/define-environment-variable-container/#define-an-environment-variable-for-a-container).
+How can you configure the environment for your deployment? Check out the docs about environment variables for containers [here](https://kubernetes.io/docs/tasks/inject-data-application/define-environment-variable-container/#define-an-environment-variable-for-a-container).
 
 ## Expose the frontend service to the public internet
 
-Now we want to expose our frontend to world, so that everyone can use our application. Therefore we have to make the frontend publicly available. How can we do this? What options do we have and what is the easiest way to do this?
+Now we want to expose our frontend to the world, so that everyone can use our application. Therefore we have to make the frontend publicly available. How can we do this? What options do we have and what is the easiest way to do this?
 
 Checkout the docs/intro about Kubernetes services [here](https://kubernetes.io/docs/tutorials/kubernetes-basics/expose/expose-intro/).
 Which type can we use?
@@ -101,7 +101,7 @@ Afterwards open the frontend in your browser and check if the frontend shows the
 
 ### Build frontend v2.0.0
 
-We encountered that our users don't like the background color `blue`. Therfore we want to change it to `green`. The source code is already available:
+We encountered that our users don't like the background color `blue`. Therefore we want to change it to `green`. The source code is already available:
 
 ```sh
 [centos@node-0 ~]$ cd
@@ -112,11 +112,11 @@ HEAD is now at dc65f9b Change background color to green
 [centos@node-0 example-app-frontend]$
 ```
 
-Now just build a new version of the frontend `v2.0.0` with the provided Dockerfile. And push the image to DockerHub. Use again your account.
+Now just build a new version of the frontend `v2.0.0` with the provided Dockerfile and push the image to DockerHub.
 
 ### Deploy frontend v2.0.0
 
-So now create again a YAML file `deployment_v2.yaml` for the new version and deploy it to the cluster. Don't forget to adapt the labels and the name. We don't want to perform an update on the exsiting deployment.
+Now create another YAML file `deployment_v2.yaml` for the new version and deploy it to the cluster. Don't forget to adapt the labels and the name. We don't want to perform an update on the existing deployment.
 
 ```sh
 [centos@node-0 example-app-frontend]$ kubectl apply -f deployment_v2.yaml
@@ -161,11 +161,11 @@ HEAD is now at 0ca7ba1 Return version 2.0.0
 [centos@node-0 example-app-backend]$
 ```
 
-Now just build a new version of the backend `v2.0.0` with the provided Dockerfile. And push the image to DockerHub. Use again your account.
+Now build a new version of the backend `v2.0.0` with the provided Dockerfile. And push the image to DockerHub.
 
 ### Deploy new backend to the cluster
 
-So now create again a YAML file `deployment_v2.yaml` for the new version and deploy it to the cluster. Don't forget to adapt the labels and the name. We don't want to perform an update on the exsiting deployment.
+So now create another YAML file `deployment_v2.yaml` for the new version and deploy it to the cluster. Don't forget to adapt the labels and the name. We don't want to perform an update on the existing deployment.
 
 ```sh
 [centos@node-0 example-app-backend]$ kubectl apply -f deployment_v2.yaml
@@ -180,11 +180,11 @@ You should see now 4 deployments(`backend-v1`, `backend-v1`, `frontend-v1`, `fro
 
 TODO insert sample output (!)
 
-### Partially release new version
+### Canary release for the new version
 
 Access the frontend in your browser and reload it a few times. Is it always showing backend version `1.0.0` or sometimes `2.0.0`?
 
-If you already face a toggling version, the service is already configured correctly. Check which part of the configuration makes it possible to get sometimes routed to the old version and sometime to the new.
+If you already face a toggling version, the service is configured correctly. Check which part of the configuration makes it possible to sometimes get routed to the old version and sometimes to the new.
 
 If you still have version `1.0.0`, you have to update your service manifest `service.yaml` of the backend. Is there a configuration parameter which just points to a specific version? If yes, how can you change it to target both version?
 

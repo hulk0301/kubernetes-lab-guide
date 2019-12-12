@@ -1,4 +1,6 @@
 #!/bin/sh
 
-npm install mdpdf -g
-mdpdf lab/lab-1.md
+#apt-get install libffi-dev
+
+pip install markdown2pdf
+md2pdf lab/lab-1.md --theme=github

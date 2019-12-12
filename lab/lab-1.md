@@ -66,7 +66,7 @@ Use `frontend:v1.0.0` as tag for your image and push it to DockerHub(you should 
 
 ## Deploy the frontend to Kubernetes
 
-Create a deployment manifest(`deployment_v1.yaml`) and apply it on the Kubernetes cluster using `kubectl`. Don't forget to specify some meaningful labels:
+Create a deployment manifest(`frontend_deployment_v1.yaml`) and apply it on the Kubernetes cluster using `kubectl`. Don't forget to specify some meaningful labels:
 
 - `app=frontend`
 - `version=v1`
@@ -89,10 +89,10 @@ Now we want to expose our frontend to the world, so that everyone can use our ap
 Checkout the docs/intro about Kubernetes services [here](https://kubernetes.io/docs/tutorials/kubernetes-basics/expose/expose-intro/).
 Which type can we use?
 
-Choose an appropriate type, create a new manifest `service.yaml` and expose so the deployment on the cluster. Don't forget to put the resource into the correct namespace and use both labels(`app`, `version`) for the pod selection.
+Choose an appropriate type, create a new manifest `frontend_service.yaml` and expose so the deployment on the cluster. Don't forget to put the resource into the correct namespace and use both labels(`app`, `version`) for the pod selection.
 
 ```sh
-[centos@node-0 example-app-frontend]$ kubectl apply -f service.yaml
+[centos@node-0 example-app-frontend]$ kubectl apply -f frontend_service.yaml
 ```
 
 Afterwards open the frontend in your browser and check if the frontend shows the backend version `v1.0.0`. If not check the `API_URL`. Maybe there is something wrong with the settings.
@@ -116,10 +116,10 @@ Now just build a new version of the frontend `v2.0.0` with the provided Dockerfi
 
 ### Deploy frontend v2.0.0
 
-Now create another YAML file `deployment_v2.yaml` for the new version and deploy it to the cluster. Don't forget to adapt the labels and the name. We don't want to perform an update on the existing deployment.
+Now create another YAML file `frontend_deployment_v2.yaml` for the new version and deploy it to the cluster. Don't forget to adapt the labels and the name. We don't want to perform an update on the existing deployment.
 
 ```sh
-[centos@node-0 example-app-frontend]$ kubectl apply -f deployment_v2.yaml
+[centos@node-0 example-app-frontend]$ kubectl apply -f frontend_deployment_v2.yaml
 ```
 
 You should see now 3 deployments(`backend-v1`, `frontend-v1`, `frontend-v2`):
@@ -135,11 +135,11 @@ TODO insert sample output (!)
 
 Access the frontend again in your browser. Has the background color changed to green?
 
-No, we first have to switch the service to the new version. Therfore update the `service.yaml` of the frontend and target only the pods with version `v2.0.0`.
+No, we first have to switch the service to the new version. Therfore update the `frontend_service.yaml` of the frontend and target only the pods with version `v2.0.0`.
 Apply the manifest:
 
 ```sh
-[centos@node-0 example-app-frontend]$ kubectl apply -f service.yaml
+[centos@node-0 example-app-frontend]$ kubectl apply -f frontend_service.yaml
 ```
 
 Now reload the page in your browser. The background color should have changed from blue to green and our customers are now happy.
@@ -165,10 +165,10 @@ Now build a new version of the backend `v2.0.0` with the provided Dockerfile. An
 
 ### Deploy new backend to the cluster
 
-So now create another YAML file `deployment_v2.yaml` for the new version and deploy it to the cluster. Don't forget to adapt the labels and the name. We don't want to perform an update on the existing deployment.
+So now create another YAML file `backend_deployment_v2.yaml` for the new version and deploy it to the cluster. Don't forget to adapt the labels and the name. We don't want to perform an update on the existing deployment.
 
 ```sh
-[centos@node-0 example-app-backend]$ kubectl apply -f deployment_v2.yaml
+[centos@node-0 example-app-backend]$ kubectl apply -f backend_deployment_v2.yaml
 ```
 
 You should see now 4 deployments(`backend-v1`, `backend-v1`, `frontend-v1`, `frontend-v2`):
@@ -186,12 +186,12 @@ Access the frontend in your browser and reload it a few times. Is it always show
 
 If you already face a toggling version, the service is configured correctly. Check which part of the configuration makes it possible to sometimes get routed to the old version and sometimes to the new.
 
-If you still have version `1.0.0`, you have to update your service manifest `service.yaml` of the backend. Is there a configuration parameter which just points to a specific version? If yes, how can you change it to target both version?
+If you still have version `1.0.0`, you have to update your service manifest `backend_service.yaml` of the backend(Maybe your service manifest file for the backend has a different name as it was not specified expliciltly). Is there a configuration parameter which just points to a specific version? If yes, how can you change it to target both version?
 
 Apply the manifest and check if you are getting now both versions displayed at your frontend:
 
 ```sh
-[centos@node-0 example-app-backend]$ kubectl apply -f service.yaml
+[centos@node-0 example-app-backend]$ kubectl apply -f backend_service.yaml
 ```
 
 We have now partially released a new feature for some customers.

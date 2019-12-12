@@ -29,15 +29,15 @@ We want to run our app in an isolated environment, therefore create a new namesp
 
 ### Deployment manifest
 
-Create a deployment manifest(`deployment_v1.yaml`) and apply it on the Kubernetes cluster using `kubectl`. Don't forget to specify some meaningful labels:
+Create a deployment manifest(`backend_deployment_v1.yaml`) and apply it on the Kubernetes cluster using `kubectl`. Don't forget to specify some meaningful labels:
 
 - `app=backend`
 - `version=v1`
 
-Put the deployment into the newly created namespace `demoapp`:
+Put the deployment into the newly created namespace `demoapp` by adding the namespace as metadata in your manifest YAML file and apply it on the cluster:
 
 ```sh
-[centos@node-0 example-app-backend]$ kubectl apply -f deployment_v1.yaml
+[centos@node-0 example-app-backend]$ kubectl apply -f backend_deployment_v1.yaml
 ```
 
 If you need more information about how to create a kubernetes deployment manifest, check the docs [here](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#creating-a-deployment). The deployment should run the **backend** docker image in version `v1.0.0`.

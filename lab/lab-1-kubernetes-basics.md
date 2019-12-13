@@ -1,4 +1,4 @@
-# Lab
+# Lab - Kubernetes basics & deployment strategies
 
 ## Build backend
 

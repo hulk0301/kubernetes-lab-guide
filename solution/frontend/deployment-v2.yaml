@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-v2
+  namespace: demoapp
+  labels:
+    app: frontend
+    version: v2
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: frontend
+      version: v2
+  template:
+    metadata:
+      labels:
+        app: frontend
+        version: v2
+    spec:
+      containers:
+        - name: frontend
+          image: hulk18/frontend:v2.0.0
+          env:
+            - name: API_URL
+              value: http://backend.default.svc.cluster.local
+          ports:
+            - containerPort: 3000

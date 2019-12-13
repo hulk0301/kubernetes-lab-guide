@@ -1,5 +1,7 @@
 # Lab - Kubernetes deployments with HELM
 
+Back to [Main page](../README.md)
+
 ## Install HELM
 
 Helm has an installer script that will automatically grab the latest version of Helm and install it locally.

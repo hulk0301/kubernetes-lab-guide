@@ -1,5 +1,7 @@
 # Lab - Kubernetes basics & deployment strategies
 
+Back to [Main page](../README.md)
+
 ## Build backend
 
 Navigate to your user home directory or whereever you want to store the source code of the backend serivce.

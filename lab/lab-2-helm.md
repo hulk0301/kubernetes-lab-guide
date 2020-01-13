@@ -26,12 +26,20 @@ The Helm Hub also provides instruction, how to use the provided charts. So first
 
 ## Add a new HELM repo
 
+In order to use the charts provided by bitnami we have to install the repo:
+
 ```sh
 [centos@node-0 ~]$ helm repo add bitnami https://charts.bitnami.com
 ```
 
+Afterwards we can use an existing chart and install Wordpress.
+
 ## Install wordpress and expose it via NodePort
+
+Now, install the chart using the helm client. We also want to use another service type: `NodePort`. Therefore we have to overwrite the default value of the property `service.type`. This can be done with the `--set KEY=VALUE` flag:
 
 ```sh
 [centos@node-0 ~]$ helm install mywordpress bitnami/wordpress --version 8.0.1 --set service.type=NodePort
 ```
+
+Now you should see some new workloads in your cluster and wordpress should be accessible via the node port.

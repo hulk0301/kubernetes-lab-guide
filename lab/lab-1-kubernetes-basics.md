@@ -2,6 +2,8 @@
 
 Back to [Main page](../README.md)
 
+In this lab, we will deploy a small application consists of 2 services(frontend & backend) to Kubernetes and explore the deployment concepts of **blue/green deployments** and **canary releases**.
+
 ## Build backend
 
 Navigate to your user home directory or whereever you want to store the source code of the backend serivce.

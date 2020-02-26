@@ -23,6 +23,6 @@ spec:
           image: hulk18/frontend:v1.0.0
           env:
             - name: API_URL
-              value: http://backend.default.svc.cluster.local
+              value: http://backend.demoapp.svc.cluster.local
           ports:
             - containerPort: 3000
